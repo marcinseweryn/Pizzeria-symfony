@@ -26,9 +26,15 @@ class LoginController extends Controller{
             $repository = $this->getDoctrine()->getRepository(User::class);
             $user = $repository->findOneBy(['email' => $user->getEmail(), 'password' => $user->getPassword()]);
             $role=NULL;
-            if($user != NULL)$role = $user->getRole();
+            if($user != NULL){
+                $role = $user->getRole();
+                $session = $request->getSession();
+                $session->set('userID', $user->getId());
+                $session->set('ROLE', $user->getRole());
+            }
             
             if($role === "ROLE_USER"){
+               
                 return $this->redirectToRoute('user-home');
             }else if($role === "ROLE_ADMIN"){
                 return $this->redirectToRoute('admin-home');
