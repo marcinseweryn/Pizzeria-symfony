@@ -23,7 +23,7 @@ class Order{
     public $userID;
     
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="datetime")
      */
     public $date;
     

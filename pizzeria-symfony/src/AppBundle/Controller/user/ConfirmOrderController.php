@@ -9,6 +9,7 @@ use AppBundle\Entity\Order;
 use AppBundle\Entity\OrderProduct;
 use AppBundle\Entity\Product;
 use AppBundle\Service\OrderService;
+use AppBundle\Service\Protection;
 use AppBundle\Entity\User;
 use AppBundle\Service\OrderProductService;
 
@@ -16,16 +17,19 @@ class ConfirmOrderController extends Controller{
     
     private $orderService;
     private $orderProductService;
+    private $protection;
     
     public function __construct(){
         $this->orderService = new OrderService();
         $this->orderProductService = new OrderProductService();
+        $this->protection = new Protection();
     }
     
     /**
      * @Route("user/order/confirm", name="user-order-confirm")
      */
     public function generateView(Request $request){
+        $this->protection->userProtection($request);
         $session = $request->getSession();
         $userID = $session->get('userID');
         $productID = $request->get('productID');

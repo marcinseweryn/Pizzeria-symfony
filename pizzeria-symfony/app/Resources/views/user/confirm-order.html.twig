@@ -25,7 +25,7 @@
 						}
 					</script>
 					
-				<form action="order/completed" method="post">
+				<form action="completed" method="post">
 				<div class="menu-block mb-5">
 				<div class="row">
 	                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
@@ -76,7 +76,7 @@
 				<div id="buttons" class="menu-block mb-2" style="display: none">
 				<div class="row"> 
 					
-						<input type="hidden" name="productID" value="{{ product.productID }}">
+						<input type="hidden" name="sum" value="{{ sum }}">
 						
 						<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 							<button class="btn btn-success btn-lg" name="action" value="order">Order now</button> 
@@ -112,7 +112,7 @@
 		                            </thead>
 		                            <tbody>
 	               					<form action="order/pizza/remove" method="post">
-		                           		<input type="hidden" name="productID" value="{{ product.productID }}">
+		                           		<input type="hidden" name="sum" value="{{ sum }}">
 			                            
 			                            {% for orderProduct in orderProductsDetails %}
 			                                <tr>

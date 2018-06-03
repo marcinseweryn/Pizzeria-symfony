@@ -9,21 +9,25 @@ use AppBundle\Entity\OrderProduct;
 use AppBundle\Entity\Product;
 use AppBundle\Service\OrderProductService;
 use AppBundle\Service\OrderService;
+use AppBundle\Service\Protection;
 
 class OrdersController extends Controller{
     
     private $orderProductService;
     private $orderService;
+    private $protection;
     
     public function __construct(){
         $this->orderService = new OrderService();
         $this->orderProductService = new OrderProductService();
+        $this->protection = new Protection();
     }
 
     /**
      * @Route("user/order", name="user-order")
      */
     public function generateView(Request $request){
+        $this->protection->userProtection($request);
         $session = $request->getSession();
         $userID = $session->get('userID');
         $productID = $request->get('productID');
@@ -56,7 +60,8 @@ class OrdersController extends Controller{
     /**
      * @Route("user/order/add", name="user-order-add")
      */
-    public function addToOrder(Request $request){       
+    public function addToOrder(Request $request){ 
+        $this->protection->userProtection($request);
         $em = $this->getDoctrine()->getManager();
         
         if($request->get('action')==="add"){
@@ -88,7 +93,8 @@ class OrdersController extends Controller{
     /**
      * @Route("user/order/remove", name="user-order-remove")
      */
-    public function removeFromOrder(Request $request){  
+    public function removeFromOrder(Request $request){ 
+        $this->protection->userProtection($request);
         $em = $this->getDoctrine()->getManager();
         $productID = $request->get('productID');
        
@@ -103,6 +109,7 @@ class OrdersController extends Controller{
      * @Route("user/order/send", name="user-order-send")
      */
     public function sendOrder(Request $request){
+        $this->protection->userProtection($request);
         $session = $request->getSession();
         $userID = $session->get('userID');
         $productID = $request->get('productID');

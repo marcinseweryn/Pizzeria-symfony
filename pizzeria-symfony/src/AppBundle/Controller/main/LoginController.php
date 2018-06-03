@@ -47,9 +47,12 @@ class LoginController extends Controller{
             ['form' => $form->createView()]);
     }
     
-    public function logoff(){
-        session_destroy();
-        session_start();
-        redirectTo("home");
+    /**
+     * @Route("/user/logoff", name="user-logoff")
+     */
+    public function logoffUser(Request $request){
+        $session = $request->getSession();
+        $session->invalidate();
+        return $this->redirectToRoute('login');
     }
 }
