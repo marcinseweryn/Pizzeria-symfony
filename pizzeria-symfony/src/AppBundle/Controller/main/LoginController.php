@@ -48,9 +48,9 @@ class LoginController extends Controller{
     }
     
     /**
-     * @Route("/user/logoff", name="user-logoff")
+     * @Route("/logoff", name="logoff")
      */
-    public function logoffUser(Request $request){
+    public function logoff(Request $request){
         $session = $request->getSession();
         $session->invalidate();
         return $this->redirectToRoute('login');

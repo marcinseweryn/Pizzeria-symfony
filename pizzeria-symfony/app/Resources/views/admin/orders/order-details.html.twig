@@ -1,0 +1,75 @@
+{% extends 'templates/admin.html.twig' %}
+
+{% block body %}
+<div class="col-12">
+  <h1>Order {{ order.orderID }}</h1>
+  <hr>
+  <h4>Customer: {{ user.name }} {{ user.surname }}</h4>
+  <hr>
+  <h4>Delivery address: {{ order.delivery }}</h4>
+  <hr>
+  <h4>Contact phone: {{ user.phone }}</h4>
+  <hr>
+  
+  <div class="card mb-3">
+       <div class="card-header">
+         <i class="fa fa-table"></i> Order products</div>
+       <div class="card-body">
+         <div class="table-responsive">
+           <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+             <thead>
+               <tr>
+                 <th>Product name</th>
+                 <th>Size</th>
+                 <th class="text-center">Price</th>
+               </tr>
+             </thead>
+             <tbody>
+             {% for orderProduct in orderProductsDetails %}
+               <tr>
+                 <td>{{ orderProduct["name"] }}</td>
+                 <td>{{ orderProduct["size"] }}</td>
+                 <td class="text-center">${{ orderProduct["price"] }}</td>
+               </tr>
+              {% endfor %}
+             </tbody>
+           </table>
+         </div>
+       </div>
+       <div class="card-footer small text-muted"></div>
+   </div>
+  <hr>
+  <h4>Order sum: ${{ order.sum }}</h4>
+  <hr>
+  	<form action="/admin/orders/order-details-action" method="post">
+  		<input type="hidden" name="from" value="{{ from }}" />
+  		<input type="hidden" name="orderID" value="{{ order.orderID }}" />
+  		{% if from == 'waiting' %}
+		 	<button name="state" value="preparing" class="btn btn-success  btn-block">Preparing</button>
+		 	<button name="state" value="queue" class="btn btn-info  btn-block">Add to queue</button>
+		 	<button name="state" value="reject" class="btn btn-danger  btn-block">Reject</button>
+	 	{% endif %}
+	 	{% if from == 'queue' %}
+	 		<button name="state" value="preparing" class="btn btn-success  btn-block">Preparing</button>
+	 	{% endif %}
+	 	{% if from == 'preparing' %}
+	 		<button name="state" value="ready" class="btn btn-success btn-block">Completed</button>
+	 	{% endif %}
+	 	{% if from == 'ready' %}
+	 		<button name="state" value="sended" class="btn btn-info btn-block">Delivery</button>
+	 		<button name="state" value="completed" class="btn btn-success btn-block">Completed</button>
+	 		<button name="state" value="uncompleted" class="btn btn-danger btn-block">Uncompleted</button>
+	 	{% endif %}
+	 	{% if from == 'sended' %}
+	 		<button name="state" value="completed" class="btn btn-success btn-block">Completed</button>
+	 		<button name="state" value="uncompleted" class="btn btn-danger btn-block">Uncompleted</button>
+	 	{% endif %}
+	 	{% if from == 'history' %}
+	 		<button name="state" value="history" class="btn btn-primary btn-block">Back to history</button>
+		{% endif %}
+	 </form>
+  <hr>
+  
+  
+</div>
+{% endblock %}

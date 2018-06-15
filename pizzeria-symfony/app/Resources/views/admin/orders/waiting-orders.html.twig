@@ -1,0 +1,39 @@
+{% extends 'templates/admin.html.twig' %}
+
+{% block body %}
+<div class="col-12">
+ <div class="card mb-3">
+        <div class="card-header">
+          <i class="fa fa-table"></i> Waiting orders</div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+              <thead>
+                <tr>
+                  <th>Order ID</th>
+                  <th>Surname</th>
+                  <th>Date</th>
+                  <th>Show</th>
+                </tr>
+              </thead>
+              <tbody>
+              	<form id="form" action="/admin/orders/order-details" method="post">
+	              	<input type="hidden" name="from" value="waiting" />
+	              	{% for orderDetails in ordersDetails %}
+	                <tr>
+	                  <td>{{ orderDetails["orderID"] }}</td>
+	                  <td>{{ orderDetails["surname"] }}</td>
+	                  <td>{{ orderDetails["date"]|date('Y-m-d H:i:s') }}</td>
+	                  <td><button name="orderID" value="{{ orderDetails['orderID'] }}" class="btn btn-primary btn-block">Show</button></td>
+	                </tr>
+	                {% endfor %}
+                </form>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="card-footer small text-muted"></div>
+    </div>
+</div>
+
+{% endblock %}

@@ -15,6 +15,8 @@
   <link href="{{ asset('css/font-awesome.min.css')}}" rel="stylesheet">
   <!-- Custom styles for this template-->
   <link href="{{ asset('css/sb-admin.css')}}" rel="stylesheet">
+  
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.18/css/dataTables.bootstrap4.css"/>
   <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
   {% endblock %}
 </head>
@@ -22,14 +24,14 @@
 <body class="fixed-nav sticky-footer bg-dark" id="page-top">
   <!-- Navigation-->
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
-    <a class="navbar-brand" href="home">Pizzeria Administration</a>
+    <a class="navbar-brand" href="/admin/home">Pizzeria Administration</a>
     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarResponsive">
       <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
-          <a class="nav-link" href="home">
+          <a class="nav-link" href="/admin/home">
             <i class="fa fa-fw fa-home"></i>
             <span class="nav-link-text">Home</span>
           </a>
@@ -41,30 +43,30 @@
           </a>
           <ul class="sidenav-second-level collapse" id="collapseComponents">
             <li>
-              <a href="orders/waiting-orders">Waiting orders</a>
+              <a href="/admin/orders/waiting-orders">Waiting orders</a>
             </li>
             <li>
-              <a href="orders/queue-of-orders">Queue of orders</a>
+              <a href="/admin/orders/queue-of-orders">Queue of orders</a>
             </li>
             <li>
-              <a href="orders/preparing-orders">Preparing orders</a>
+              <a href="/admin/orders/preparing-orders">Preparing orders</a>
             </li>
             <li>
-              <a href="orders/ready-orders">Ready orders</a>
+              <a href="/admin/orders/ready-orders">Ready orders</a>
             </li>
             <li>
-              <a href="orders/sended-orders">Sended orders</a>
+              <a href="/admin/orders/sended-orders">Sended orders</a>
             </li>
           </ul>
         </li>
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
-          <a class="nav-link" href="products">
+          <a class="nav-link" href="/admin/products">
             <i class="fa fa-fw fa-cutlery"></i>
             <span class="nav-link-text">Products</span>
           </a>
         </li>
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
-          <a class="nav-link" href="history">
+          <a class="nav-link" href="/admin/history">
             <i class="fa fa-fw fa-table"></i>
             <span class="nav-link-text">History</span>
           </a>
@@ -101,7 +103,7 @@
 			});
 			
 			function refreshTable(){
-			    $('#newOrders').load('../RefreshOrders.php', function(){
+			    $('#newOrders').load('/RefreshOrders.php', function(){
 			       setTimeout(refreshTable, 10000);
 			    });
 			}
@@ -149,14 +151,13 @@
           <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
           <div class="modal-footer">
             <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-            <a class="btn btn-primary" href="logoff">Logout</a>
+            <a class="btn btn-primary" href="/logoff">Logout</a>
           </div>
         </div>
       </div>
     </div>
     {% block javascripts %}
     <!-- Bootstrap core JavaScript-->
-    <script src="{{ asset('js/jquery.min.js')}}" type="text/javascript"></script>
     <script src="{{ asset('js/bootstrap.bundle.min.js')}}"></script>
     <!-- Core plugin JavaScript-->
     <script src="{{ asset('js/jquery.easing.min.js')}}"></script>

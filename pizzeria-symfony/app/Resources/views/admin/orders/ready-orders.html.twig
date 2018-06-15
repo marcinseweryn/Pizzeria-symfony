@@ -1,0 +1,47 @@
+{% extends 'templates/admin.html.twig' %}
+
+{% block body %}
+<div class="col-12">
+	<div class="card mb-3">
+        <div class="card-header">
+          <i class="fa fa-table"></i> Ready orders</div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+              <thead>
+                <tr>
+                  <th>Order ID</th>
+                  <th>Surname</th>
+                  <th>Delivery address</th>
+                  <th>Delivery</th>
+                  <th>Completed</th>
+                  <th>Uncompleted</th>
+                  <th>Show</th>
+                </tr>
+              </thead>
+              <tbody>
+              	<form id="show" action="/admin/orders/order-details" method="post">
+	              	<input type="hidden" name="from" value="ready" />
+	            </form>
+	            <form id="ready" action="/admin/orders/ready-orders-action" method="post">
+	              	
+	            </form>
+	              	{% for orderDetails in ordersDetails %}
+	                <tr>
+	                  <td>{{ orderDetails["orderID"] }}</td>
+	                  <td>{{ orderDetails["surname"] }}</td>
+	                  <td>{{ orderDetails["delivery"] }}</td>
+	                  <td><button form="ready" name="orderID" value="D{{ orderDetails['orderID'] }}" class="btn btn-info btn-block">Delivery</button></td>
+	                  <td><button form="ready" name="orderID" value="C{{ orderDetails['orderID'] }}" class="btn btn-success btn-block">Completed</button></td>
+	                  <td><button form="ready" name="orderID" value="U{{ orderDetails['orderID'] }}" class="btn btn-danger btn-block">Uncompleted</button></td>
+	                  <td><button form="show" name="orderID" value="{{ orderDetails['orderID'] }}" class="btn btn-primary btn-block">Show</button></td>
+	                </tr>
+	                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="card-footer small text-muted"></div>
+    </div>
+</div>
+{% endblock %}

@@ -32,6 +32,15 @@ class OrdersRepository extends EntityRepository
         
     }
     
+    public function updateOrderStateByOrderID($state, $orderID){
+        $order = $this->getEntityManager()->getRepository(Order::class)->find($orderID);
+        
+        $order->setState($state);
+        
+        $this->getEntityManager()->flush();
+        
+    }
+    
     public function findOrdersInProgressByUserID($userID){
         return $this->getEntityManager()
         ->createQuery
@@ -48,5 +57,24 @@ class OrdersRepository extends EntityRepository
                         WHERE (p.userID ='${userID}') AND (p.state='reject' OR p.state='uncompleted'
                                 OR p.state='completed')")
                                 ->getResult();
+    }
+    
+    public function findOrdersHistory(){
+        return $this->getEntityManager()
+        ->createQuery
+        ("SELECT p FROM AppBundle:Order p
+                        WHERE p.state IN ('reject','uncompleted','completed')")
+                        ->getResult();
+    }
+    
+    public function findOrdersDetailsByState($state)
+    {
+        return $this->getEntityManager()
+        ->createQuery
+        ("SELECT o.orderID, u.surname, o.date, o.delivery, o.sum, o.state
+                FROM AppBundle:Order o
+                   JOIN AppBundle:User u WITH o.userID=u.id
+                        WHERE o.state ='${state}'")
+                        ->getResult();
     }
 }

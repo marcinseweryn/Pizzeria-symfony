@@ -11,8 +11,8 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-$sql = "SELECT * FROM `order` WHERE state = 'waiting'";
-$result = $conn->query($sql);
+$sql = "SELECT * FROM `orders` WHERE state = 'waiting'";
+if($result = $conn->query($sql)){
 
 
 echo '<h6 class="dropdown-header">New Orders: </h6>
@@ -21,7 +21,7 @@ echo '<h6 class="dropdown-header">New Orders: </h6>
 if ($result->num_rows > 0) {
     // output data of each row
     while($row = $result->fetch_assoc()) {
-        echo '<a class="dropdown-item" href="/Pizzeria/pizzeria/ctrl.php?a=admin/orders/waiting-orders">
+        echo '<a class="dropdown-item" href="/admin/orders/waiting-orders">
               <strong>Order '.$row["order_id"].'</strong>
               <span class="small float-right text-muted">'.$row["date"].'</span>
               <div class="dropdown-message small">New order</div>
@@ -39,7 +39,7 @@ if ($result->num_rows > 0) {
                   display:'inline-block',
                 });
                 
-                var audio = new Audio('../bell.mp3');
+                var audio = new Audio('/bell.mp3');
                 audio.play();
           </script>";
 } else {
@@ -60,4 +60,7 @@ if ($result->num_rows > 0) {
          </script>";
 }
 $conn->close();
+}else {
+    printf("Error: %s\n", $conn->error);
+}
 
