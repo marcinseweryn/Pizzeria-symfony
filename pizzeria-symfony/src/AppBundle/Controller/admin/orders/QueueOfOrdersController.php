@@ -19,7 +19,7 @@ class QueueOfOrdersController extends Controller{
      * @Route("admin/orders/queue-of-orders", name="admin-orders-queue-of-orders")
      */
     public function generateView(Request $request){        
-        $this->protection->userProtection($request);
+        $this->protection->adminProtection($request);
         
         $em = $this->getDoctrine()->getManager();
         $ordersDetails = $em->getRepository(Order::class)->findOrdersDetailsByState('queue');
@@ -32,7 +32,7 @@ class QueueOfOrdersController extends Controller{
      * @Route("admin/orders/queue-of-orders-preparing", name="admin-orders-queue-of-orders-preparing")
      */
     public function prepareOrder(Request $request){       
-        $this->protection->userProtection($request);
+        $this->protection->adminProtection($request);
         $orderID = $request->get('orderID');
         
         $em = $this->getDoctrine()->getManager();

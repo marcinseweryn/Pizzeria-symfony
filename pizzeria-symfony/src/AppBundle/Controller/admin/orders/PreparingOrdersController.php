@@ -20,7 +20,7 @@ class PreparingOrdersController extends Controller{
      * @Route("admin/orders/preparing-orders", name="admin-orders-preparing-orders")
      */
     public function generateView(Request $request){
-        $this->protection->userProtection($request);
+        $this->protection->adminProtection($request);
         
         $em = $this->getDoctrine()->getManager();
         $ordersDetails = $em->getRepository(Order::class)->findOrdersDetailsByState('preparing');
@@ -33,7 +33,7 @@ class PreparingOrdersController extends Controller{
      * @Route("admin/orders/preparing-orders-ready", name="admin-orders-preparing-orders-ready")
      */
     public function orderReady(Request $request){
-        $this->protection->userProtection($request);
+        $this->protection->adminProtection($request);
         $orderID = $request->get('orderID');
         
         $em = $this->getDoctrine()->getManager();

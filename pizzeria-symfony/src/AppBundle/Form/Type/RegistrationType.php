@@ -20,7 +20,7 @@ class RegistrationType extends AbstractType
         ->add('postalCode', TextType::class)
         ->add('email', TextType::class)
         ->add('phone', TextType::class)
-        ->add('save', SubmitType::class, array('label' => 'Register',
+        ->add('save', SubmitType::class, array('label' => 'Submit',
             'attr'   =>  array(
                 'class'   => 'btn btn-primary')))
         ;

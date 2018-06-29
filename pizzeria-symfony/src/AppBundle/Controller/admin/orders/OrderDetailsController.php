@@ -25,7 +25,7 @@ class OrderDetailsController extends Controller{
      * @Route("admin/orders/order-details", name="admin-orders-order-details")
      */
     public function generateView(Request $request){
-        $this->protection->userProtection($request);
+        $this->protection->adminProtection($request);
         $orderID = $request->get('orderID');
         $from = $request->get('from');
         
@@ -51,6 +51,7 @@ class OrderDetailsController extends Controller{
      * @Route("admin/orders/order-details-action", name="admin-orders-order-details-action")
      */
     public function action(Request $request){
+        $this->protection->adminProtection($request);
         $from = $request->get('from');
         
         $em = $this->getDoctrine()->getManager();

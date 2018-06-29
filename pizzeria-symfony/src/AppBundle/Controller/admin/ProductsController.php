@@ -19,7 +19,7 @@ class ProductsController extends Controller{
      * @Route("admin/products", name="admin-products")
      */
     public function generateView(Request $request){
-        $this->protection->userProtection($request);
+        $this->protection->adminProtection($request);
 
         $em = $this->getDoctrine()->getManager();
         
@@ -33,7 +33,7 @@ class ProductsController extends Controller{
      * @Route("admin/products-action", name="admin-products-action")
      */
     public function action(Request $request){
-        $this->protection->userProtection($request);
+        $this->protection->adminProtection($request);
         
         $em = $this->getDoctrine()->getManager();
         

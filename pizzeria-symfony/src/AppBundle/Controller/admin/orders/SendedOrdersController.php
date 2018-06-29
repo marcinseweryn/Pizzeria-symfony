@@ -19,7 +19,7 @@ class SendedOrdersController extends Controller{
      * @Route("admin/orders/sended-orders", name="admin-orders-sended-orders")
      */
     public function generateView(Request $request){
-        $this->protection->userProtection($request);
+        $this->protection->adminProtection($request);
         
         $em = $this->getDoctrine()->getManager();
         $ordersDetails = $em->getRepository(Order::class)->findOrdersDetailsByState('sended');
@@ -31,8 +31,8 @@ class SendedOrdersController extends Controller{
     /**
      * @Route("admin/orders/sended-orders-action", name="admin-orders-sended-orders-action")
      */
-    public function action(){
-        $this->protection->userProtection($request);
+    public function action(Request $request){
+        $this->protection->adminProtection($request);
         
         $orderID = substr($request->get('orderID'), 1);
         $action = substr($request->get('orderID'), 0, 1);

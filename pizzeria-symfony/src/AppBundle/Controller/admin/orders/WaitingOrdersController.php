@@ -19,7 +19,7 @@ class WaitingOrdersController extends Controller{
      * @Route("admin/orders/waiting-orders", name="admin-orders-waiting-orders")
      */
     public function generateView(REquest $request){
-        $this->protection->userProtection($request);
+        $this->protection->adminProtection($request);
         
         $em = $this->getDoctrine()->getManager();
         $ordersDetails = $em->getRepository(Order::class)->findOrdersDetailsByState('waiting');

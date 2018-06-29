@@ -19,7 +19,7 @@ class HistoryController extends Controller{
      * @Route("admin/history", name="admin-history")
      */
     public function generateView(Request $request){
-        $this->protection->userProtection($request);
+        $this->protection->adminProtection($request);
         
         $em = $this->getDoctrine()->getManager();
         $orders = $em->getRepository(Order::class)->findOrdersHistory();
