@@ -26,7 +26,7 @@ class Protection extends Controller{
      */
     public function adminProtection($request){
         $userRole = $request->getSession()->get('ROLE');
-        if($userRole === 'ROLE_USER'){
+        if($userRole === 'ROLE_ADMIN'){
         }else{
             exit();
         }
